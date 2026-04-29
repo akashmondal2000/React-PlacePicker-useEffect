@@ -1,4 +1,20 @@
+import { useEffect } from "react";
+
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
+  // hare i implement the modal will close automatically after 3 second and aslo delete
+
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    console.log("Delete after 3 second");
+      onConfirm();
+    }, 3000);
+
+    return ()=>{
+      console.log("clean up timer")
+      clearTimeout(timer)
+    }
+  }, [onConfirm]);
+
   return (
     <div id="delete-confirmation">
       <h2>Are you sure?</h2>
