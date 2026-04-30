@@ -1,22 +1,9 @@
 import { useEffect, useState } from "react";
+import ProgreassBar from "./ProgreassBar.jsx";
 
-  const TIMER = 3000;
+const TIMER = 3000;
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-
-  const [remainingTime,setRemainingTime] = useState(TIMER);
-
-  useEffect(()=>{
-    const Interval = setInterval(()=>{
-      console.log("Interval")
-      setRemainingTime(prevRemainingTime => prevRemainingTime - 10 )
-    },10)
-
-    return ()=>{
-      console.log("clear interval");
-      clearInterval(Interval);
-    }
-  },[])
 
   // hare i implement the modal will close automatically after 3 second and aslo delete
   useEffect(() => {
@@ -43,7 +30,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
           Yes
         </button>
       </div>
-      <progress value={ remainingTime} max={TIMER} />
+      <ProgreassBar timer={TIMER}/>
     </div>
   );
 }
