@@ -1,13 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+  const TIMER = 3000;
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-  // hare i implement the modal will close automatically after 3 second and aslo delete
 
+  const [remainingTime,setRemainingTime] = useState(TIMER);
+
+  useEffect(()=>{
+    const Interval = setInterval(()=>{
+      console.log("Interval")
+      setRemainingTime(prevRemainingTime => prevRemainingTime - 10 )
+    },10)
+
+    return ()=>{
+      console.log("clear interval");
+      clearInterval(Interval);
+    }
+  },[])
+
+  // hare i implement the modal will close automatically after 3 second and aslo delete
   useEffect(() => {
   const timer = setTimeout(() => {
     console.log("Delete after 3 second");
       onConfirm();
-    }, 3000);
+    }, TIMER);
 
     return ()=>{
       console.log("clean up timer")
@@ -27,6 +43,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
           Yes
         </button>
       </div>
+      <progress value={ remainingTime} max={TIMER} />
     </div>
   );
 }
